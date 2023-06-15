@@ -110,9 +110,12 @@ exports.receiveMessage =  functions.https.onRequest(async (request, response) =>
         recipientId
     } = request.body;
     
-    //get all message for reciver user  
-    const reciverdata = db.collection('Messages').where("to", "==", recipientId);
-    response.status(200).send({'message':"Record found",'data':reciverdata, 'error':''});
+    const snapshot = await db.collection('Messages').get();
+    const documents = snapshot.docs.map((doc) => doc.data());
+
+
+    //const reciverdata = db.collection('Messages').doc().where("to", "==", recipientId);
+    response.status(200).send({'message':"Record found",'data':documents, 'error':''});
 
 
 });
