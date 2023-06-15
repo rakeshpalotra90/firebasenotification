@@ -39,7 +39,7 @@ exports.sendToken = functions.https.onRequest((request, response) => {
 
 
     if (res) {
-        response.status(200).send({'message':"Token updated successfully",'data':[], 'error':''});
+        response.status(200).send({'message':"Token updated successfully",'data':[], 'error':false});
     } else {
         response.status(200).send({'message':"Token not updated",'data':[], 'error':true});
     }
