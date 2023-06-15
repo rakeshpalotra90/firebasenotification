@@ -1,12 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
-// admin.initializeApp(
-//    { 
-//         credential: admin.credential.cert(serviceAccount),
-//         databaseURL: 'https://fir-noti-c7bd6.firebaseio.com'
-//    }
-// );
 
 const {
     initializeApp,
@@ -37,19 +31,12 @@ exports.sendToken = functions.https.onRequest((request, response) => {
     console.log(request.body);
 
     let res;
-    // if (request.body.type == "sender") {
-    //     const cityRef = db.collection('Sender').doc(userId);
-    //     res = cityRef.update({
-    //         token: request.body.token
-    //     });
-
-    // } else {
+    
         const cityRef = db.collection('Receiver').doc(userId);
         res = cityRef.update({
             token: request.body.token
         });
 
-   // }
 
     if (res) {
         response.status(200).send({'message':"Token updated successfully",'data':[], 'error':''});
